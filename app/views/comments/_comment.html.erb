@@ -1,0 +1,29 @@
+
+<li class="m-4 mb-6 bg-amber-100 p-2 border-spacing-1 rounded-sm ">
+    <div class="bg-gray-100 px-6 py-3 my-2">
+        <div class="">
+            <div class="w-full h-10 mb-3">
+                <% if @project.user.avatar.attached? %>
+                    <div class="w-auto m-0 inline-block">
+                        <%= image_tag url_for(comment.user.avatar), class: "rounded h-10" %>
+                    </div>
+                <% end %>
+                <h4 class="italic inline m-0 h-10 text-gray"><%= comment.user.email %></h4>
+            </div>
+        </div>
+        <div class="bg-white py-4 px-2">
+        <%= comment.content %>
+        </div>
+    </div>
+     <div class="m-4 comment-reply">
+        <%= form_for [comment, Comment.new] do |f| %>
+        <%= f.text_area :content, placeholder: "Add a Reply" %><br/>
+        <%= f.submit "Reply", class: "ml-2 rounded-lg py-3 px-5 bg-blue-100 inline-block font-medium"  %>
+        <% end %>
+     </div>
+
+    <ul>
+      <%= render partial: 'comments/comment', collection: comment.comments %>
+    </ul>
+
+</li>

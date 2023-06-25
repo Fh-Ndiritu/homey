@@ -1,0 +1,20 @@
+<div id="<%= dom_id project %>">
+  <div class="header text-2xl justify-start w-100">
+    <h2><%= project.title %> <span class="bg-blue-600 float-right p-2 rounded-sm text-sm text-white"><%= project.status.title %></span></h2>
+    <span class="text-gray-400 text-xs"> Project by: <%= project.user.email%></span>
+  </div>
+  <div class="">
+    <div class="py-4"> <span class="text-green-500"> Due:</span>    <%= project.due_date %> </div>
+     <div class="py-4"> <span class="text-green-500"> Assigned to:</span> <%= project.assignee.email %> </div>
+  </div>
+  <div class="bg-gray-50 p-6 w-3/4">
+    <%= project.description %>
+  </div>
+</>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this project", project, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this project', edit_project_path(project), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

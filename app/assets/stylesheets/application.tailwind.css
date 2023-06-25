@@ -11,3 +11,8 @@
 }
 
 */
+
+.comment-reply textarea{
+    resize: vertical;
+    height: 2.5rem;
+}

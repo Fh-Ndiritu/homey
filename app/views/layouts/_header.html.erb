@@ -1,0 +1,27 @@
+<nav class="relative select-none bg-grey lg:flex lg:items-stretch w-full bg-red-300 py-6">
+  <div class="flex flex-no-shrink items-stretch h-12 px-6">
+    Homey Tasks
+  </div>
+  <div class="lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow">
+    <div class="lg:flex lg:items-stretch lg:justify-end ml-auto"><%= link_to "Projects", projects_path, class: "flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-gray-600 no-underline flex items-center hover:bg-grey-dark"%>
+     <%= link_to "Statuses", statuses_path, class: "flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-gray-600 no-underline flex items-center hover:bg-grey-dark"%>
+      <% if user_signed_in? %>
+        <%= link_to "Edit Account", edit_user_registration_path, class: "flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-gray-600 no-underline flex items-center hover:bg-grey-dark"%>
+        <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-gray-600 no-underline flex items-center hover:bg-grey-dark"%>
+      
+      <%else%>
+        <%= link_to "Login", new_user_session_path, class: "flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-gray-600 no-underline flex items-center hover:bg-grey-dark"%>
+        <%= link_to "SignUp", new_user_registration_path, class: "flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-gray-600 no-underline flex items-center hover:bg-grey-dark"%>
+      <%end%>
+    </div>
+  </div>
+</nav>
+
+
+<% if !user_signed_in? %>
+    <h1 class="font-bold text-4xl text-green-600 content-center">Welcome to Homey Tasks!</h1>
+<% end %>
+       <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+

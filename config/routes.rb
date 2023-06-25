@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
-  resources :statuses
   get 'home/index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
+  resources :statuses
+  
   root to: "home#index"
-
   devise_for :users, controllers: { registrations: 'users/registrations' }
+
+  resources :projects do
+    resources :comments
+  end
+
+  resources :comments do
+    resources :comments
+  end
 end

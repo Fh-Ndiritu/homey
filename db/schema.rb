@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_25_082408) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_25_113204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,45 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_082408) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "assignees", force: :cascade do |t|
+    t.bigint "projects_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["projects_id"], name: "index_assignees_on_projects_id"
+    t.index ["user_id"], name: "index_assignees_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "commentable_id"
+    t.string "commentable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.date "due_date"
+    t.bigint "status_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "assigned_to"
+    t.index ["status_id"], name: "index_projects_on_status_id"
+    t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string "title"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -56,4 +95,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_082408) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "assignees", "projects", column: "projects_id"
+  add_foreign_key "assignees", "users"
+  add_foreign_key "comments", "users"
+  add_foreign_key "projects", "statuses"
+  add_foreign_key "projects", "users"
 end
